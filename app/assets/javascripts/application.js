@@ -12,5 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= owl.carousel.min
+//= bootstrap.min
+//= wow.min
+//= typewriter
+//= jquery.onepagenav
+//= main
+//= jquery-1.11.1.min
 //= require_tree .
