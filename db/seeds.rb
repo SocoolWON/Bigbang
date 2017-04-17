@@ -11,3 +11,7 @@
   Teacher.create(firstname: Faker::Name.first_name, lastname: Faker::Name.last_name, email: Faker::Internet.email, password: "test1111", password_confirmation: "test1111")
   Orientation.create(course_name: "intermediate", user_id: 1, teacher_id: 2)
 end
+  User.create(firstname: "admin", lastname: "Won", email: "master@tinytalk.com", password: "mastertinytalk", password_confirmation: "mastertinytalk")
+
+
+
