@@ -8,34 +8,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="description" content="Tinytalk is the only one for learning German" />
     <meta name="keywords" content="html template, css, free, one page, gym, fitness, web design" />
     <meta name="author" content="Luka Cvetinovic for Codrops" />
     <!-- Favicons (created with http://realfavicongenerator.net/)-->
-    <link rel="apple-touch-icon" sizes="57x57" href="../../favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../favicons/apple-touch-icon-60x60.png">
-    <link rel="icon" type="image/png" href="../../favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="../../favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="../../favicons/manifest.json">
-    <link rel="shortcut icon" href="../../favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="/../../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/../../favicons/apple-touch-icon-60x60.png">
+    <link rel="icon" type="image/png" href="/../../favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/../../favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/../../favicons/manifest.json">
+    <link rel="shortcut icon" href="/../../favicons/favicon.ico">
     <meta name="msapplication-TileColor" content="#00a8ff">
-    <meta name="msapplication-config" content="../../favicons/browserconfig.xml">
+    <meta name="msapplication-config" content="/../../favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <!-- Normalize -->
-    <link rel="stylesheet" type="text/css" href="../../assets/normalize.css">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap.css">
-    <!-- Owl -->
-    <link rel="stylesheet" type="text/css" href="../../assets/owl.css">
-    <!-- Animate.css -->
-    <link rel="stylesheet" type="text/css" href="../../assets/animate.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome-4.1.0/css/font-awesome.min.css">
-    <!-- Elegant Icons -->
-    <link rel="stylesheet" type="text/css" href="../../assets/fonts/eleganticons/et-icons.css">
-    <!-- Main style -->
-    <link rel="stylesheet" type="text/css" href="../../assets/cardio.css">
+    <!-- Only Home index -->
+    <% if controller.controller_name == "home" %>
+  		<link rel="stylesheet" type="text/css" href="/../../assets/normalize.css">
+  		<link rel="stylesheet" type="text/css" href="/../../assets/bootstrap.css">
+  		<link rel="stylesheet" type="text/css" href="/../../assets/owl.css">
+  		<link rel="stylesheet" type="text/css" href="/../../assets/animate.css">
+  		<link rel="stylesheet" type="text/css" href="/../../assets/fonts/font-awesome-4.1.0/css/font-awesome.min.css">
+  		<link rel="stylesheet" type="text/css" href="/../../assets/fonts/eleganticons/et-icons.css">
+  		<link rel="stylesheet" type="text/css" href="/../../assets/cardio.css">
+    <% end %>
+    <!-- End -->
+    <!-- Get Bootstrap except Home-->
+    <% if controller.controller_name != "home" %>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <% end %>
+    <!-- End -->
   </head>
 
   <body>
