@@ -8,5 +8,6 @@ class Teacher < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :reviews
+  has_many :orientations
   has_many :users, through: :courses
 end

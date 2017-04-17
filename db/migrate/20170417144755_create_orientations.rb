@@ -1,11 +1,9 @@
-class CreateCourses < ActiveRecord::Migration[5.0]
+class CreateOrientations < ActiveRecord::Migration[5.0]
   def change
-    create_table :courses do |t|
+    create_table :orientations do |t|
       t.string :course_name #수업종류 구분
-      t.datetime :started_at #수업 시작 날짜
-      t.datetime :ended_at  #수업종료 날짜
+      t.datetime :started_at #오리엔테이션 시작 날짜
       t.string :days #수업이 있는 날
-      t.integer :total_classes
       t.string :course_hour #1시간 수업
       t.string :german_time
       t.string :korean_time

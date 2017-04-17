@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170322175529) do
+ActiveRecord::Schema.define(version: 20170417144755) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170322175529) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string   "type"
+    t.string   "course_name"
     t.datetime "started_at"
     t.datetime "ended_at"
     t.string   "days"
@@ -39,6 +39,21 @@ ActiveRecord::Schema.define(version: 20170322175529) do
     t.datetime "updated_at",    null: false
     t.index ["teacher_id"], name: "index_courses_on_teacher_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "orientations", force: :cascade do |t|
+    t.string   "course_name"
+    t.datetime "started_at"
+    t.string   "days"
+    t.string   "course_hour"
+    t.string   "german_time"
+    t.string   "korean_time"
+    t.integer  "user_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["teacher_id"], name: "index_orientations_on_teacher_id"
+    t.index ["user_id"], name: "index_orientations_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
