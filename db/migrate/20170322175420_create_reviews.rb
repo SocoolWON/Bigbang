@@ -3,8 +3,6 @@ class CreateReviews < ActiveRecord::Migration[5.0]
     create_table :reviews do |t|
       t.integer :fun
       t.integer :communication
-      t.integer :accuracy 
-      t.integer :value
       t.integer :useful
       t.text :content
 

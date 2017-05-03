@@ -9,11 +9,13 @@ class DeviseCreateTeachers < ActiveRecord::Migration[5.0]
       t.integer :hourly_wage
       t.integer :phone_number #should be connected with WhatsApp
       t.string :education #University or deploma 
+      t.string :deduction #minus
       t.string :work #Work experience
       t.string :interest
       t.text :introduction
       t.string :paypal
-      t.integer :level 
+      t.integer :level  #Level 1 for offline tutor, Level 2 for offline tutor, Level 3 For all and level 4 is Assistant
+      t.string :status
       
       ## Database authenticatable
       t.string :email,              null: false, default: ""

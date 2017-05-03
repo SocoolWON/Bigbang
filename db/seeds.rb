@@ -9,9 +9,27 @@
 10.times do 
   User.create(firstname: Faker::Name.first_name, lastname: Faker::Name.last_name, email: Faker::Internet.email, password: "test1111", password_confirmation: "test1111")
   Teacher.create(firstname: Faker::Name.first_name, lastname: Faker::Name.last_name, email: Faker::Internet.email, password: "test1111", password_confirmation: "test1111")
-  Orientation.create(course_name: "intermediate", user_id: 1, teacher_id: 2)
 end
+
   User.create(firstname: "admin", lastname: "Won", email: "master@tinytalk.com", password: "mastertinytalk", password_confirmation: "mastertinytalk")
 
+  Teacher.create(firstname: "admin", lastname: "Won", email: "master@tinytalk.com", password: "mastertinytalk", password_confirmation: "mastertinytalk")
+
+=begin
+  Course.create(category: %w[online, offline].sample.to_s, course_type: %w[beginner intermediate advanced].sample.to_s, started_at: Time.now, ended_at: Time.now + 31.days, location: "Seoul", user_id: [*1..10].sample, teacher_id: [*1..10].sample )
+end
+
+10.times do
+  Post.create(title: "feedback", content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", user_id: [*1..10].sample, teacher_id: [*1..10].sample, course_id: 1)
+end
+
+10.times do
+  Review.create(fun: [*1..5].sample, communication: [*1..5].sample, accuracy: [*1..5].sample, value: [*1..5].sample, useful: [*1..5].sample, content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", user_id: [*1..10].sample, teacher_id: [*1..10].sample, course_id: [*1..10].sample)
+end
+
+10.times do
+  Comment.create(content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", user_id: [*1..10].sample, teacher_id: [*1..10].sample, post_id: [*1..10].sample)
+end
+=end
 
 

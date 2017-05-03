@@ -5,9 +5,9 @@ class Teacher < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :courses
+  has_many :registrations
   has_many :posts
   has_many :comments
   has_many :reviews
-  has_many :orientations
-  has_many :users, through: :courses
+  has_and_belongs_to_many :users
 end

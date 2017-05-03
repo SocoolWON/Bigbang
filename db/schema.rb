@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417144755) do
+ActiveRecord::Schema.define(version: 20170426143114) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -25,35 +25,27 @@ ActiveRecord::Schema.define(version: 20170417144755) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string   "course_name"
-    t.datetime "started_at"
-    t.datetime "ended_at"
+    t.string   "category"
+    t.string   "course_type"
+    t.string   "introduction"
+    t.integer  "count_students"
+    t.date     "started_at"
+    t.date     "ended_at"
+    t.string   "location"
     t.string   "days"
     t.integer  "total_classes"
     t.string   "course_hour"
     t.string   "german_time"
     t.string   "korean_time"
-    t.integer  "user_id"
     t.integer  "teacher_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["teacher_id"], name: "index_courses_on_teacher_id"
-    t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
-  create_table "orientations", force: :cascade do |t|
-    t.string   "course_name"
-    t.datetime "started_at"
-    t.string   "days"
-    t.string   "course_hour"
-    t.string   "german_time"
-    t.string   "korean_time"
-    t.integer  "user_id"
-    t.integer  "teacher_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["teacher_id"], name: "index_orientations_on_teacher_id"
-    t.index ["user_id"], name: "index_orientations_on_user_id"
+  create_table "courses_users", id: false, force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id",   null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -69,11 +61,35 @@ ActiveRecord::Schema.define(version: 20170417144755) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "registrations", force: :cascade do |t|
+    t.string   "category"
+    t.string   "course_type"
+    t.string   "introduction"
+    t.integer  "count_students"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string   "location"
+    t.string   "days"
+    t.integer  "total_classes"
+    t.string   "course_hour"
+    t.string   "german_time"
+    t.string   "korean_time"
+    t.integer  "teacher_id"
+    t.integer  "course_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["course_id"], name: "index_registrations_on_course_id"
+    t.index ["teacher_id"], name: "index_registrations_on_teacher_id"
+  end
+
+  create_table "registrations_users", id: false, force: :cascade do |t|
+    t.integer "registration_id", null: false
+    t.integer "user_id",         null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "fun"
     t.integer  "communication"
-    t.integer  "accuracy"
-    t.integer  "value"
     t.integer  "useful"
     t.text     "content"
     t.integer  "user_id"
@@ -95,11 +111,13 @@ ActiveRecord::Schema.define(version: 20170417144755) do
     t.integer  "hourly_wage"
     t.integer  "phone_number"
     t.string   "education"
+    t.string   "deduction"
     t.string   "work"
     t.string   "interest"
     t.text     "introduction"
     t.string   "paypal"
     t.integer  "level"
+    t.string   "status"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -114,6 +132,11 @@ ActiveRecord::Schema.define(version: 20170417144755) do
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_teachers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
+  end
+
+  create_table "teachers_users", id: false, force: :cascade do |t|
+    t.integer "teacher_id", null: false
+    t.integer "user_id",    null: false
   end
 
   create_table "users", force: :cascade do |t|
