@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-  has_one :registration
+  has_one :registration, dependent: :destroy
   has_and_belongs_to_many :users
   belongs_to :teacher
   has_many :posts

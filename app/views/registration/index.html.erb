@@ -1,0 +1,63 @@
+<% if current_user%>
+  <%= render partial: "/shared/navbarUser" %>
+  <div class="jumbotron">
+    <div class="container">
+        <h1>수강신청</h1>
+    </div>
+  </div>
+  <% @regis.each do |registration| %>
+    <ul>
+      <div class="container">
+        <div class="well">
+          <li>카테고리: <%= registration.course.category %></li>
+          <li>수업종류: <%= registration.course.course_type %></li>
+          <li>시작날짜: <%= registration.course.started_at%></li>
+          <li>예상종료: <%= registration.course.ended_at%></li>
+          <li>독일시간: <%= registration.course.german_time%></li>
+          <li>한국시간: <%= registration.course.korean_time%></li>
+          <li>요일: <%= registration.course.days%></li>
+          <li><%= link_to '자세히보기', course_path(registration)%></li>
+          <% if registration.state == 1 %>
+            <% for i in 0..2 %>
+              <% if registration.users.ids[i] == current_user.id %>
+                <% @applied = true %>
+              <% end %>
+            <% end %>
+            <% if @applied == false %>
+              <li><%= link_to '신청', registration_apply_path(registration), method: :post%> </li>
+            <% else %>
+              <li><%= link_to '취소', registration_cancel_path(registration), method: :post%> </li>
+              <% @applied = false %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </ul>
+  <% end %>
+<% elsif current_teacher %>
+  <%= render partial: "/shared/navbarTeacher" %>
+
+  <div class="jumbotron">
+    <div class="container">
+        <h1>Apply class!</h1>
+    </div>
+  </div>
+  <% @regis.each do |c| %>
+    <ul>
+      <div class="container">
+        <div class="well">
+          <li>카테고리: <%= c.course.category %></li>
+          <li>수업종류: <%= c.course.course_type %></li>
+          <li>시작날짜: <%= c.course.started_at%></li>
+          <li>예상종료: <%= c.course.ended_at%></li>
+          <li>독일시간: <%= c.course.german_time%></li>
+          <li>한국시간: <%= c.course.korean_time%></li>
+          <li>요일: <%= c.course.days%></li>
+          <li><%= link_to '자세히보기', course_path(c)%></li>
+        </div>
+      </div>
+    </ul>
+  <% end %>
+<% else %>
+#######################404 page #############
+<% end %>

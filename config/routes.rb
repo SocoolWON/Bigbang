@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post 'registration/cancel/:id' => 'registration#cancel', as: 'registration_cancel'
+  post 'registration/apply/:id' => 'registration#apply', as: 'registration_apply'
+  get 'registration/index' => 'registration#index'
   devise_for :users
   devise_for :teachers
   get '/online' => 'courses#index'

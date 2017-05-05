@@ -1,4 +1,4 @@
-<% if current_teacher %>
+<% if current_teacher && @course.teacher_id == current_teacher.id%>
   <%= render partial: "/shared/navbarTeacher"%>
   <%= render partial: "form"%>
 <% end %>

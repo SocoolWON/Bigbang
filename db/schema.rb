@@ -62,18 +62,8 @@ ActiveRecord::Schema.define(version: 20170426143114) do
   end
 
   create_table "registrations", force: :cascade do |t|
-    t.string   "category"
-    t.string   "course_type"
-    t.string   "introduction"
     t.integer  "count_students"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.string   "location"
-    t.string   "days"
-    t.integer  "total_classes"
-    t.string   "course_hour"
-    t.string   "german_time"
-    t.string   "korean_time"
+    t.integer  "state"
     t.integer  "teacher_id"
     t.integer  "course_id"
     t.datetime "created_at",     null: false
