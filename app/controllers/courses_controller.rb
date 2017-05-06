@@ -1,25 +1,29 @@
 class CoursesController < ApplicationController
-before_action :authenticate_teacher!, except: [:index, :req_head]
+before_action :authenticate_teacher!, except: [:index, :req_head, :classRoom]
 before_action :set_course, only: [:show, :edit, :update, :destroy]
   def index
     @course = Course.all
   end
+
   def new
     @course = Course.new
   end
+
   def create
     @course = Course.new(course_params)
     course_others()
     if @course.save
-      regist_course()
+      create_regis()
       redirect_to '/online'
     else
       #redirect_back(fallback_location: new_course_path)
       render text: @course.errors.full_messages[0]
     end
   end
+
   def edit
   end
+
   def update
     if @course.update(course_params)
       course_others()
@@ -30,11 +34,23 @@ before_action :set_course, only: [:show, :edit, :update, :destroy]
       render text: @course.errors.full_messages[0]
     end
   end
+
   def show
   end
+
   def destroy
     if @course.destroy
       redirect_to '/online'
+    end
+  end
+
+  def classRoom
+    course_ids = current_user.courses.ids  
+    if course_ids.present?
+      @courses = Array.new
+      course_ids.each do |id|
+        @courses << Course.find(id)
+      end
     end
   end
 
@@ -42,9 +58,11 @@ before_action :set_course, only: [:show, :edit, :update, :destroy]
   def set_course
     @course = Course.find(params[:id])
   end
+
   def course_params
     params.require(:course).permit(:category, :location, :introduction, :course_type, :started_at, :german_time, :teacher_id, :days => [])
   end
+
   def course_others
     @course.days = @course.days.scan(/\w{3}/).to_a
     @course.ended_at = @course.started_at + 4.week
@@ -74,9 +92,11 @@ before_action :set_course, only: [:show, :edit, :update, :destroy]
     else
     end
   end
-  def regist_course
+
+  def create_regis
     Registration.create(teacher_id: @course.teacher_id, course_id: @course.id, state: 1, count_students: 0)
   end
+
   def req_head
     @header = request.headers
   end

@@ -13,6 +13,7 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.string :course_hour #1시간 수업
       t.string :german_time
       t.string :korean_time
+      t.integer :state # 0 == done,  1 == still 
 
       t.belongs_to :teacher
 

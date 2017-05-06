@@ -1,0 +1,20 @@
+<% if current_user %>
+  <%= render partial: "/shared/navbarUser"%>
+  <div class="jumbotron">
+    <div class="container">
+        <h1>수업 게시판</h1>
+        <p><%= link_to '글쓰기', new_post_path %></p>
+    </div>
+  </div>
+  <div class="container">
+    <% @posts.each do |post| %>
+      <div class="well">
+        <p>제목: <%=post.title%></p>
+        <p>내용: <%=post.content%></p>
+        <% if current_user.id == post.user.id %>
+        <%= link_to '수정', edit_post_path(post) %> | <%= link_to '삭제', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

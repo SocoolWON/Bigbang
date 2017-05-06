@@ -12,8 +12,10 @@ class RegistrationController < ApplicationController
         @regis.users << current_user
         @regis.count_students += 1
         if @regis.count_students == 3
-          course_start()
+          students = 3
+          course_start(students)
         end
+        timer_regis()
         @regis.save
         redirect_to :back
       else 
@@ -21,7 +23,21 @@ class RegistrationController < ApplicationController
         redirect_to :back
       end
     when "offline"
-      ##########################
+      if @regis.count_students < 8 && @regis.state == 1
+        @regis.users << current_user
+        @regis.count_students += 1
+        if @regis.count_students == 8
+          students = 8
+          course_start(students)
+        end
+        timer_regis()
+        @regis.save
+        redirect_to :back
+      else 
+        flash[:error] = "Sorry, It is already full"
+        redirect_to :back
+      end
+  
     else
       ##########################
     end
@@ -48,10 +64,22 @@ class RegistrationController < ApplicationController
     @regis = Registration.find(params[:id])
   end
 
-  def course_start 
+  def course_start(students)
     @regis.state = 0 # 수강신청 닫힘
-    course = Registration.find(@regis.course_id)
-    course.count_students = 3
+    course = Course.find(@regis.course_id)
+    course.count_students = students
     course.save
+  end
+
+  def timer_regis
+    @timer = Time.now + 1.day
+    if @timer < Time.now 
+      @regis.count_students -= 1
+      @regis.users.delete(current_user)
+      if @regis.state == 0
+        @regis.state = 1
+      end
+      @regis.save
+    end 
   end
 end
