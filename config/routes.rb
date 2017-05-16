@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/online' => 'courses#index'
   resources :courses
   resources :teachers, only: [:index]
+  get '/' => 'home#index'
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
