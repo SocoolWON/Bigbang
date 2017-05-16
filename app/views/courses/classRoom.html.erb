@@ -13,15 +13,35 @@
           <p>선생님: <%= course.teacher.firstname %></p>
           <p>수업: <%= course.course_type %></p>
           <p>시작: <%= course.started_at %> | 요일: <%= course.days%> | 시간: <%= course.korean_time%></p>
-          <p><%= link_to '화상수업', '#'%></p>
+          <p><%= link_to '화상수업', chatroom_path(course)%></p>
           <p><%= link_to '수업질문', board_path(course)%></p>
         </div>
       <% end %>
     <% end %>
   </div>
+
 <% elsif current_teacher %>
   <%= render partial: "/shared/navbarTeacher" %>
 
+  <div class="jumbotron">
+    <div class="container">
+        <h1>Class Room</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <% if @courses.present?%>
+      <% @courses.each do |course| %>
+        <div class="well">
+          <p>Teacher: <%= course.teacher.firstname %></p>
+          <p>class type: <%= course.course_type %></p>
+          <p>start_at: <%= course.started_at %> | 요일: <%= course.days%> | 시간: <%= course.korean_time%></p>
+          <p><%= link_to 'Go to videoroom', chatroom_path(course)%></p>
+          <p><%= link_to 'Go to Questionroom', board_path(course)%></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% else %>
 #######################404 page #############
 <% end %>

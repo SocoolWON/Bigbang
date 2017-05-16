@@ -1,6 +1,8 @@
+require "opentok"
+
 class CoursesController < ApplicationController
-before_action :authenticate_teacher!, except: [:index, :req_head, :classRoom]
-before_action :set_course, only: [:show, :edit, :update, :destroy]
+before_action :authenticate_teacher!, except: [:index, :req_head, :classroom, :chatroom]
+before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
   def index
     @course = Course.all
   end
@@ -44,14 +46,40 @@ before_action :set_course, only: [:show, :edit, :update, :destroy]
     end
   end
 
-  def classRoom
-    course_ids = current_user.courses.ids  
-    if course_ids.present?
-      @courses = Array.new
-      course_ids.each do |id|
-        @courses << Course.find(id)
+  def classroom
+    if current_user
+      course_ids = current_user.courses.ids  
+      if course_ids.present?
+        @courses = Array.new
+        course_ids.each do |id|
+          @courses << Course.find(id)
+        end
       end
+    elsif current_teacher
+      @courses = current_teacher.courses     
+    else
     end
+  end
+  
+  def chatroom 
+    @api_key = '45843842'
+    api_secret = 'af9d7977a426e7f59ef318528b049f8a9ae518ab'
+
+    if @course.room_session.nil?
+      opentok = OpenTok::OpenTok.new @api_key, api_secret
+      session = opentok.create_session :archive_mode => :always, :media_mode => :routed
+      session_id = session.session_id
+      @course.room_session = session
+      @course.room_session_id = session_id
+      @course.save
+    else
+      opentok = OpenTok::OpenTok.new @api_key, api_secret
+      session = @course.room_session
+      session_id = @course.room_session_id
+    end
+
+    @token = opentok.generate_token session_id 
+    @session_id = session_id
   end
 
   private

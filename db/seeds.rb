@@ -16,4 +16,9 @@ end
   Teacher.create(firstname: "admin", lastname: "Won", email: "master@tinytalk.com", password: "mastertinytalk", password_confirmation: "mastertinytalk")
 
 
+ Course.create(category: "Online", course_type: "Intermediate", introduction: "asdf", count_students: 1, started_at: "2017-05-16", ended_at: "2017-06-13", location: nil, days: "[\"Tue\", \"Wed\"]", total_classes: 8, course_hour: "1h", german_time: "09:00", room_session: nil, room_session_id: nil, korean_time: "16:00", state: nil, teacher_id: 11)
 
+c = Course.last
+u = User.last
+c.users << u
+c.save

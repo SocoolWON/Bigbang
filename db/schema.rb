@@ -37,9 +37,12 @@ ActiveRecord::Schema.define(version: 20170426143114) do
     t.string   "course_hour"
     t.string   "german_time"
     t.string   "korean_time"
+    t.integer  "state"
+    t.text     "room_session"
+    t.text     "room_session_id"
     t.integer  "teacher_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["teacher_id"], name: "index_courses_on_teacher_id"
   end
 

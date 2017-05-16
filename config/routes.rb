@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  get '/chatroom/:id' => 'courses#chatroom', as: 'chatroom'
   get '/board/:id' => 'posts#index', as: 'board'  
-  get '/classroom' => 'courses#classRoom'
-  resources :posts, except: [:index]
+  get '/classroom' => 'courses#classroom'
+  resources :posts, except: [:index]  
   post 'registration/cancel/:id' => 'registration#cancel', as: 'registration_cancel'
   post 'registration/apply/:id' => 'registration#apply', as: 'registration_apply'
   get 'registration/index' => 'registration#index'

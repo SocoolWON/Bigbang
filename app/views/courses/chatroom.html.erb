@@ -1,0 +1,68 @@
+<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+<script type="text/javascript">
+  var apiKey = '<%= @api_key %>';
+  var sessionId = '<%= @session_id %>';
+  var token = '<%= @token %>';
+</script>
+<!--
+<p>apikey: <%= @api_key %></p><br>
+<p>session ID: <%= @session_id %></p><br>
+<p>token: <%= @token %></p>
+-->
+    <div id="videos">
+        <div id="subscriber"></div>
+        <div id="publisher"></div>
+    </div>
+
+
+<script type="text/javascript">
+if (OT.checkSystemRequirements() == 1) {
+  var session;
+  var connectionCount = 0;
+
+  function connect() {
+    // Replace apiKey and sessionId with your own values:
+    session = OT.initSession(apiKey, sessionId);
+    session.on({
+      connectionCreated: function (event) {
+        connectionCount++;
+        console.log(connectionCount + ' connections.');
+      },
+      connectionDestroyed: function (event) {
+        connectionCount--;
+        console.log(connectionCount + ' connections.');
+      },
+      sessionDisconnected: function sessionDisconnectHandler(event) {
+        // The event is defined by the SessionDisconnectEvent class
+        console.log('Disconnected from the session.');
+        document.getElementById('disconnectBtn').style.display = 'none';
+        if (event.reason == 'networkDisconnected') {
+          alert('Your network connection terminated.')
+        }
+      }
+    });
+    // Replace token with your own value:
+    session.connect(token, function(error) {
+      if (error) {
+        console.log('Unable to connect: ', error.message);
+      } else {
+        document.getElementById('disconnectBtn').style.display = 'block';
+        console.log('Connected to the session.');
+        connectionCount = 1;
+      }
+    });
+  }
+
+  function disconnect() {
+    session.disconnect();
+  }
+
+  connect(); 
+// Nothing from here
+} else {
+  console.log("Your browser doesn't support WebRTC, please use Chrome instead")
+}
+
+</script>
+
