@@ -1,4 +1,37 @@
 <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+<style>
+body, html {
+    background-color: gray;
+    height: 100%;
+}
+#videos {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#subscriber {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#publisher {
+    position: absolute;
+    width: 360px;
+    height: 240px;
+    bottom: 10px;
+    left: 10px;
+    z-index: 100;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+</style>
 
 <script type="text/javascript">
   var apiKey = '<%= @api_key %>';
@@ -16,53 +49,88 @@
     </div>
 
 
-<script type="text/javascript">
-if (OT.checkSystemRequirements() == 1) {
-  var session;
-  var connectionCount = 0;
+<script>
+var session = OT.initSession(apiKey, sessionId);
+var connectionCount = 0;
+var publisher; 
+var options = {width: 400, height: 300, insertMode: 'append'}
 
-  function connect() {
-    // Replace apiKey and sessionId with your own values:
-    session = OT.initSession(apiKey, sessionId);
-    session.on({
-      connectionCreated: function (event) {
-        connectionCount++;
-        console.log(connectionCount + ' connections.');
-      },
-      connectionDestroyed: function (event) {
-        connectionCount--;
-        console.log(connectionCount + ' connections.');
-      },
-      sessionDisconnected: function sessionDisconnectHandler(event) {
-        // The event is defined by the SessionDisconnectEvent class
-        console.log('Disconnected from the session.');
-        document.getElementById('disconnectBtn').style.display = 'none';
-        if (event.reason == 'networkDisconnected') {
-          alert('Your network connection terminated.')
+function connect() {
+  // Replace apiKey and sessionId with your own values:
+  session.on({
+    connectionCreated: function (event) {
+      connectionCount++;
+      console.log(connectionCount + ' connections.');
+    },
+    connectionDestroyed: function (event) {
+      connectionCount--;
+      console.log(connectionCount + ' connections.');
+    },
+    sessionDisconnected: function sessionDisconnectHandler(event) {
+      // The event is defined by the SessionDisconnectEvent class
+      console.log('Disconnected from the session.');
+      document.getElementById('disconnectBtn').style.display = 'none';
+      if (event.reason == 'networkDisconnected') {
+        alert('Your network connection terminated.')
+      }
+    }
+  });
+
+/*
+  session.on("streamCreated", function(event) {
+    session.subscribe(event.stream, 'subscriber');
+  });
+*/
+
+  session.on('streamCreated', function(event) {
+    if (connectionCount <= 2) {
+    var subscriberProperties = {insertMode: 'append', width: '1000px', height: '750px'};
+    } else  {
+    var subscriberProperties = {insertMode: 'append', width: '400px', height: '300px'};
+    }
+    var subscriber = session.subscribe(event.stream,
+      'subscriber',
+      subscriberProperties,
+      function (error) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Subscriber added.');
         }
-      }
     });
-    // Replace token with your own value:
-    session.connect(token, function(error) {
-      if (error) {
-        console.log('Unable to connect: ', error.message);
-      } else {
-        document.getElementById('disconnectBtn').style.display = 'block';
-        console.log('Connected to the session.');
-        connectionCount = 1;
-      }
-    });
-  }
+    
+  });
 
-  function disconnect() {
-    session.disconnect();
-  }
 
-  connect(); 
-// Nothing from here
-} else {
-  console.log("Your browser doesn't support WebRTC, please use Chrome instead")
+  // Replace token with your own value:
+  session.connect(token, function(error) {
+    if (error) {
+      console.log("You cannot publish an audio-video stream.");
+      console.log('Unable to connect: ', error.message);
+    } else {
+      publisher = OT.initPublisher('publisher',
+                                   {width:300, height:300});
+      publisher.on({
+        streamCreated: function (event) {
+          console.log("Publisher started streaming.");
+        },
+        streamDestroyed: function (event) {
+          console.log("Publisher stopped streaming. Reason: "
+            + event.reason);
+        }
+      });
+
+      session.publish(publisher);
+      document.getElementById('disconnectBtn').style.display = 'block';
+      console.log('Connected to the session.');
+      connectionCount = 1;
+    }
+  });
+
 }
 
+function disconnect() {
+  session.disconnect();
+}
+connect();
 </script>
-
