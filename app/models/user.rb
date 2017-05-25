@@ -12,6 +12,15 @@ class User < ApplicationRecord
   has_many :courses, through: :registrations
   has_and_belongs_to_many :teachers
 
+  validates :firstname, 
+      format: { with: /\A[a-zA-Z]+\z/,
+        message: "First name은 오직 알파벳만 가능합니다" },
+      presence: true
+  validates :lastname, 
+      format: { with: /\A[a-zA-Z]+\z/,
+        message: "Last name은 오직 알파벳만 가능합니다" },
+      presence: true
+
   def is_registered?(registration)
      Registration.find_by(user_id: self.id, course_id: registration.course_id).present?
   end

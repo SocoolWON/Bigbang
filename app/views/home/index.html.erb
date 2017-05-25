@@ -24,8 +24,8 @@
 						<% if current_user %>
 							<li><a href="/users/sign_out" data-method="delete">Log Out</a></li>
 						<% else %>
-							<li><a href="#" data-toggle="modal" data-target="#modal2" class="btn btn-blue">Log In</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Sign Up</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#sign_in" class="btn btn-blue">Log In</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#sign_up" class="btn btn-blue">Sign Up</a></li>
 						<% end %>
 					</ul>
 				</div>
@@ -338,7 +338,7 @@
 		</section>
 
 		<!-- 모달 회원가입 -->
-		<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content modal-popup">
 					<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
@@ -378,7 +378,7 @@
 		<!-- 모달 회원가입 종료-->
 
 		<!-- 모달 로그인 -->
-		<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content modal-popup">
 					<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>

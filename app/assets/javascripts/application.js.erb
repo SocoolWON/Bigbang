@@ -1,0 +1,77 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file. JavaScript code in this file should be added after the last require_* statement.
+//
+// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require jquery
+//= require jquery_ujs
+//= owl.carousel.min
+//= bootstrap.min
+//= wow.min
+//= typewriter
+//= jquery.onepagenav
+//= require tinymce-jquery
+//= require tinymce
+//= main
+//= jquery-1.11.1.min
+//= require_tree .
+
+
+// 로그인 
+$(document).on('submit', '#signin_form', function(e) {
+      //console.log("hi : "+ e);
+  }).on('ajax:success', '#signin_form', function(e, data, status, xhr) { //로그인 성공 시
+      //console.log("hi1 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
+      window.location.href = "/courses" //새로고침
+  }).on('ajax:error', '#signin_form', function(e, data, status, xhr) {   //로그인 실패 시
+      //console.log("hi2 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
+      //console.log(""+data.responseText);
+      //오류 메시지 출력
+      $('.error_feedback').html('<p>' + data.responseText + '다시 로그인 해주세요</p>');
+});
+
+
+//회원가입 
+$(document).on('submit', '#signup_form', function(e){
+      console.log("hi3");
+  }).on('ajax:success', '#signup_form', function(e, data, status, xhr) {  //회원가입 성공 시
+      console.log("hi4");
+      window.location.reload(true); //새로고침
+  }).on('ajax:error', '#signup_form', function(e, data, status, xhr) {    //회원가입 실패 시
+      errors = JSON && JSON.parse(data.responseText) || $.parseJSON(data.responseText);
+    // console.log("hiㅁ ? : " + data.resopnseText['email']);
+    // console.log("hiㅁ ? : " + JSON.stringify(data.resopnseText['email']));
+    // console.log("hi5 ? : " + JSON.stringify(errors[email]));
+    console.log("hi5 fn : " + errors['firstname']);
+    console.log("hi5 ln : " + errors['lastname']);
+    console.log("hi5 e : " + errors['email']);
+    console.log("hi5 pc : " + errors['password']);
+
+    if(errors['firstname'])
+      {
+        $('.error_feedback').html('회원가입 실패<p>Name&nbsp;' + errors['firstname'] + '</p>');
+      }
+    else if(errors['lastname'])
+      {
+        $('.error_feedback').html('회원가입 실패<p>Email&nbsp;' + errors['lastname'] + '</p>');
+      }
+    else if(errors['email'])
+      {
+        $('.error_feedback').html('회원가입 실패<p>Email&nbsp;' + errors['email'] + '</p>');
+      }
+    else if(errors['password'])
+      {
+        $('.error_feedback').html('회원가입 실패<p>Password&nbsp;' + errors['password'] + '</p>');
+      }
+    else
+      {
+        $('.error_feedback').html('회원가입 실패<p>패스워드는 서로 같아야합니다&nbsp;</p>');
+      }
+});
