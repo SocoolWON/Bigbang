@@ -1,85 +1,73 @@
 class RegistrationController < ApplicationController
-  before_action :set_regis, except: [:index]
-  def index
-    @regis = Registration.where(state: 1)
-    @applied = false
+  before_action :set_regis, except: [:index ,:privateTutoring, :publicTutoring]
+  before_action :timer_check
+
+
+  def privateTutoring
+    @regis_all = Registration.where(studentNumberInCourse: "1", state: "open")
+  end
+  
+  def publicTutoring
+    @regis_all = Registration.where(studentNumberInCourse: "several", state: "open")
   end
 
   def apply
-    case @regis.course.category.downcase
-    when "online"
-      if @regis.count_students < 3 && @regis.state == 1
-        @regis.users << current_user
-        @regis.count_students += 1
-        if @regis.count_students == 3
-          students = 3
-          course_start(students)
+    @tmp_apply = true
+    if current_user.courses.present?
+      current_user.courses.each do |course|
+        if course.german_time.to_time.hour == @regis.course.german_time.to_time.hour
+          @tmp_apply = false
+          break
+        elsif @regis.course.german_time.to_time.hour + 1 == course.german_time.to_time.hour   
+          @tmp_apply = false
+          break
+        elsif course.german_time.to_time.hour + 1 == @regis.course.german_time.to_time.hour
+          @tmp_apply = false
+          break
+        else
+          @tmp_apply = true
+          break
         end
-        timer_regis()
+      end
+    end
+    
+    if @tmp_apply == true 
+      if @regis.present?
+        @regis.user_id = current_user.id
+        @regis.fee_deadline = Time.now + 24.hour 
         @regis.save
         redirect_to :back
-      else 
-        flash[:error] = "Sorry, It is already full"
+      else
+        flash[:alert] = "Error to apply"
         redirect_to :back
       end
-    when "offline"
-      if @regis.count_students < 8 && @regis.state == 1
-        @regis.users << current_user
-        @regis.count_students += 1
-        if @regis.count_students == 8
-          students = 8
-          course_start(students)
-        end
-        timer_regis()
-        @regis.save
-        redirect_to :back
-      else 
-        flash[:error] = "Sorry, It is already full"
-        redirect_to :back
-      end
-  
     else
-      ##########################
+      flash[:alert] = "You cannot apply a course while your other class running"
+      redirect_to :back
     end
   end
 
   def cancel
-    if @regis.users.ids.present?
-      @regis.count_students -= 1
-      @regis.users.delete(current_user)
-      if @regis.state == 0
-        @regis.state = 1
-      end
-      @regis.save
+    @regis.user_id = nil
+    if @regis.save
       redirect_to :back
     else
-      flash[:error] = "Your command was not executed"
-      redirect_to :back
+      flash[:alert] = "Error to cancel"
     end
   end
-
 
   private
   def set_regis
     @regis = Registration.find(params[:id])
   end
 
-  def course_start(students)
-    @regis.state = 0 # 수강신청 닫힘
-    course = Course.find(@regis.course_id)
-    course.count_students = students
-    course.save
-  end
-
-  def timer_regis
-    @timer = Time.now + 1.day
-    if @timer < Time.now 
-      @regis.count_students -= 1
-      @regis.users.delete(current_user)
-      if @regis.state == 0
-        @regis.state = 1
+  def timer_check
+    all_regis = Registration.where(state: "open")
+    all_regis.each do |each_regis|
+      if each_regis.fee_deadline.present? &&  each_regis.fee_deadline < Time.now 
+        each_regis.user_id = nil
+        each_regis.save
       end
-      @regis.save
-    end 
+    end
   end
 end

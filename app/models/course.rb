@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
-  has_one :registration, dependent: :destroy
-  has_and_belongs_to_many :users
+  has_many :registrations, dependent: :destroy
+  has_many :users, through: :registrations
+  has_many :registered_users, through: :registrations, source: :user
   belongs_to :teacher
   has_many :posts, dependent: :destroy
   has_many :reviews
@@ -11,7 +12,7 @@ class Course < ApplicationRecord
   validates :location,
     presence: { :if => lambda {self.category == "Offline"}, message: "Must select one location" }
   validates :course_type,
-    inclusion: { in: ['Beginner', 'Intermediate', 'Advanced', 'Current Affairs', 'Test A1', 'Test A2', 'Test B1', 'Test B2', 'German Culture', 'Free Topic'], message: "Must select one course type" },
+    inclusion: { in: ['Conversation', 'Business', 'German Culture', 'German Exam'], message: "Must select one course type" },
     presence: true
   validates :started_at,
     format: { with: /\A[2]{1}[0-9]{3}-[0-1]{1}[0-9]{1}-[0-3]{1}[0-9]{1}/, message: "only allows numbers" },
@@ -25,5 +26,4 @@ class Course < ApplicationRecord
   validates :introduction,
     length: { maximum: 500, message: "cannot be over 500 words" },
     presence: true
- 
 end

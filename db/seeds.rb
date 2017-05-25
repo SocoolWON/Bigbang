@@ -14,11 +14,11 @@ end
   User.create(firstname: "admin", lastname: "Won", email: "master@tinytalk.com", password: "mastertinytalk", password_confirmation: "mastertinytalk")
 
   Teacher.create(firstname: "admin", lastname: "Won", email: "master@tinytalk.com", password: "mastertinytalk", password_confirmation: "mastertinytalk")
-
-
- Course.create(category: "Online", course_type: "Intermediate", introduction: "asdf", count_students: 1, started_at: "2017-05-16", ended_at: "2017-06-13", location: nil, days: "[\"Tue\", \"Wed\"]", total_classes: 8, course_hour: "1h", german_time: "09:00", room_session: nil, room_session_id: nil, korean_time: "16:00", state: nil, teacher_id: 11)
+=begin
+Course.create(category: "Online", course_type: "Conversation", introduction: "hi", count_students: nil, started_at: "2017-05-22", ended_at: "2017-06-19", location: nil, days: "[\"Tue\", \"Wed\"]", total_classes: 8, course_hour: "1h", german_time: "08:30", korean_time: "15:30", state: nil, studentNumberInCourse: "1", room_session: nil, room_session_id: nil, teacher_id: 11)
 
 c = Course.last
 u = User.last
 c.users << u
 c.save
+=end

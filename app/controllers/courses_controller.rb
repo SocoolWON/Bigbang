@@ -15,7 +15,7 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
     @course = Course.new(course_params)
     course_others()
     if @course.save
-      create_regis()
+      create_regis(@course.studentNumberInCourse)
       redirect_to '/online'
     else
       #redirect_back(fallback_location: new_course_path)
@@ -88,7 +88,7 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
   end
 
   def course_params
-    params.require(:course).permit(:category, :location, :introduction, :course_type, :started_at, :german_time, :teacher_id, :days => [])
+    params.require(:course).permit(:category, :location, :introduction, :course_type, :started_at, :german_time, :teacher_id, :studentNumberInCourse,:days => [])
   end
 
   def course_others
@@ -121,8 +121,8 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
     end
   end
 
-  def create_regis
-    Registration.create(teacher_id: @course.teacher_id, course_id: @course.id, state: 1, count_students: 0)
+  def create_regis(student)
+    Registration.create(teacher_id: @course.teacher_id, course_id: @course.id, state: "open", studentNumberInCourse: student)
   end
 
   def req_head

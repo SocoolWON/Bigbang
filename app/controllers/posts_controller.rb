@@ -1,15 +1,19 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :show, :destroy]
+  before_action :set_course, only: [:index]
 
   def index
-    @show = false
-    set_course()
-    current_user.courses.ids.each do |ids|
-      if ids ==  @@course.id
-       @show = true 
+    if current_user
+      @show = false
+      current_user.courses.ids.each do |ids|
+        if ids ==  @@course.id
+         @show = true 
+        end
       end
+      @posts = Post.where(course_id: @@course.id) if @show == true
+    else
+      @posts = Post.where(course_id: @@course.id)
     end
-    @posts = Post.where(course_id: @@course.id) if @show == true
   end
   def new
     @post = Post.new

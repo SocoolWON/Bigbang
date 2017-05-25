@@ -6,24 +6,23 @@
 
   <div class="jumbotron">
     <div class="container">
-        <h1>Check All open classes</h1>
+        <h1>All available classes</h1>
     </div>
   </div>
   <% @course.each do |course| %>
     <ul>
       <div class="container">
         <div class="well">
-          <li>카테고리: <%= course.category %></li>
-          <li>수업종류: <%= course.course_type %></li>
-          <li>시작날짜: <%= course.started_at%></li>
-          <li>예상종료: <%= course.ended_at%></li>
-          <li>독일시간: <%= course.german_time%></li>
-          <li>한국시간: <%= course.korean_time%></li>
-          <li>요일: <%= course.days%></li>
-          <li><%= link_to 'Show', course_path(course)%></li>
+          <p>Category: <%= course.category %></p>
+          <p>Type: <%= course.course_type %></p>
+          <p>Started_at: <%= course.started_at%></p>
+          <p>Ended_at: <%= course.ended_at%></p>
+          <p>German time: <%= course.german_time%></p>
+          <p>Days: <%= course.days%></p>
+          <%= link_to 'Show', course_path(course), class: "btn btn-default"%>
           <% if course.teacher_id == current_teacher.id %>
-            <li><%= link_to 'Edit', edit_course_path(course)%></li>
-            <li><%= link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }%></li>
+            <%= link_to 'Edit', edit_course_path(course), class: "btn btn-default"%>
+            <%= link_to 'Destroy', course_path(course), class: "btn btn-default", method: :delete, data: { confirm: 'Are you sure?' }%>
           <% end %>
         </div>
       </div>

@@ -1,0 +1,19 @@
+<% if current_user%>
+  <%= render partial: "/shared/navbarUser" %>
+  <div class="jumbotron">
+    <div class="container">
+        <h1>준비중입니다</h1>
+        <%= flash[:alert] %>
+    </div>
+  </div>
+<% elsif current_teacher %>
+  <%= render partial: "/shared/navbarTeacher" %>
+
+  <div class="jumbotron">
+    <div class="container">
+        <h1>Open soon!</h1>
+    </div>
+  </div>
+<% else %>
+#######################404 page #############
+<% end %>

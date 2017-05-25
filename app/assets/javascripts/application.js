@@ -17,6 +17,8 @@
 //= wow.min
 //= typewriter
 //= jquery.onepagenav
+//= require tinymce-jquery
+//= require tinymce
 //= main
 //= jquery-1.11.1.min
 //= require_tree .
