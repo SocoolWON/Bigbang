@@ -9,7 +9,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-   #super
+   super
+=begin
     build_resource(sign_up_params)
 
     if resource.save
@@ -30,6 +31,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         format.html { respond_with resource }
       end
     end
+=end
   end
 
   # GET /resource/edit

@@ -1,5 +1,5 @@
-<p>Welcome <%= @email %>!</p>
+<p><%= @resource.firstname %> 회원가입을 하였습니다.</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>아래 링크를 클릭하여 로그인하면, 계정이 활성화됩니다.</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>

@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :courses
   devise_for :users, controllers: {
         sessions: 'users/sessions', 
-        registrations: 'users/registrations'
+        registrations: 'users/registrations',
+        confirmations: 'confirmations'
       }
   devise_for :teachers
   get '/online' => 'courses#index'
