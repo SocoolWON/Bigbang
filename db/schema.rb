@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20170426141840) do
     t.string   "paypal"
     t.integer  "level"
     t.string   "status"
+    t.string   "picture"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

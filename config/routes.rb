@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/registration/search' => 'registration#search', as: 'search'
   get '/registration/private' => 'registration#privateTutoring'
   get '/registration/public' => 'registration#publicTutoring'
   get '/chatroom/:id' => 'courses#chatroom', as: 'chatroom'

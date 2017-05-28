@@ -43,7 +43,7 @@ $(document).on('submit', '#signup_form', function(e){
       console.log("hi3");
   }).on('ajax:success', '#signup_form', function(e, data, status, xhr) {  //회원가입 성공 시
       console.log("hi4");
-      window.location.reload(true); //새로고침
+      window.location.href = "/courses" //새로고침
   }).on('ajax:error', '#signup_form', function(e, data, status, xhr) {    //회원가입 실패 시
       errors = JSON && JSON.parse(data.responseText) || $.parseJSON(data.responseText);
     // console.log("hiㅁ ? : " + data.resopnseText['email']);

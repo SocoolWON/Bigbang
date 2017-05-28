@@ -1,0 +1,29 @@
+  <div class="container">
+    <% @regis_all.each do |registration| %>
+      <% registration.each do |registration| %>
+      <ul>
+          <div class="well">
+            <p>카테고리: <%= registration.course.category %></p>
+            <p>수업종류: <%= registration.course.course_type %></p>
+            <p>시작날짜: <%= registration.course.started_at%></p>
+            <p>예상종료: <%= registration.course.ended_at%></p>
+            <p>독일시간: <%= registration.course.german_time%></p>
+            <p>한국시간: <%= registration.course.korean_time%></p>
+            <p>요일: <%= registration.course.days%></p>
+            <span class="input-group-btn">
+              <% if registration.user_id.present? && current_user.id != registration.user_id %>
+                <%= link_to '수강인원꽉참', '#', class: "btn btn-danger disabled"%> 
+              <% else %>
+                <% if current_user.is_registered?(registration) == true %>
+                  <%= link_to '신청됨','#', class: "btn btn-success disabled"%>
+                  <%= link_to '취소', registration_cancel_path(registration), class: "btn btn-default", method: "post"%> 
+                <% else %>
+                  <%= link_to '신청', registration_apply_path(registration), class: "btn btn-default", method: "post"%> 
+                <% end %>
+              <% end %>
+            </span>
+          </div>
+      </ul>
+    <% end %>
+    <% end %>
+  </div>

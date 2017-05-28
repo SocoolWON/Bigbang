@@ -1,14 +1,14 @@
 class RegistrationController < ApplicationController
-  before_action :set_regis, except: [:index ,:privateTutoring, :publicTutoring]
+  before_action :set_regis, except: [:index ,:privateTutoring, :publicTutoring, :search]
   before_action :timer_check
 
 
   def privateTutoring
-    @regis_all = Registration.where(studentNumberInCourse: "1", state: "open")
+   @regis_all = Registration.where(studentNumberInCourse: "1", state: "open")
   end
   
   def publicTutoring
-    @regis_all = Registration.where(studentNumberInCourse: "several", state: "open")
+   @regis_all = Registration.where(studentNumberInCourse: "several", state: "open")
   end
 
   def apply
@@ -56,6 +56,17 @@ class RegistrationController < ApplicationController
     end
   end
 
+  def search
+   @regis_all = Array.new
+   courses = Course.where(course_type: params[:course_type], german_time: params[:german_time])
+   if courses.present?
+     courses.each do |course|
+        if course.registrations.present?
+          @regis_all << course.registrations
+        end
+     end
+   end
+  end
   private
   def set_regis
     @regis = Registration.find(params[:id])
