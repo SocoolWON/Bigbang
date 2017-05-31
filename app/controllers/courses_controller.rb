@@ -14,12 +14,18 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
   def create
     @course = Course.new(course_params)
     course_others()
-    if @course.save
-      create_regis(@course.studentNumberInCourse)
-      redirect_to '/online'
+    duplicate_check(@course)
+    if @error == false 
+      if @course.save
+        create_regis(@course.studentNumberInCourse)
+        redirect_to '/online'
+      else
+        #redirect_back(fallback_location: new_course_path)
+        render text: @course.errors.full_messages[0]
+      end
     else
-      #redirect_back(fallback_location: new_course_path)
-      render text: @course.errors.full_messages[0]
+      flash[:notice] = "You cannot create the class, having other class at the same time."
+      redirect_to :back
     end
   end
 
@@ -27,14 +33,22 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
   end
 
   def update
-    if @course.update(course_params)
-      course_others()
-      @course.save
-      redirect_to '/online'
+    tmp_course = Course.new(course_params)
+    duplicate_check(tmp_course)
+    if @error == false 
+      if @course.update(course_params)
+        course_others()
+        @course.save
+        redirect_to '/online'
+      else
+        #redirect_back(fallback_location: new_course_path)
+        render text: @course.errors.full_messages[0]
+      end
     else
-      #redirect_back(fallback_location: new_course_path)
-      render text: @course.errors.full_messages[0]
+      flash[:notice] = "You cannot create the class, having other class at the same time."
+      redirect_to :back
     end
+
   end
 
   def show
@@ -92,6 +106,7 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
   end
 
   def course_others
+    @course.state = 1
     @course.days = @course.days.scan(/\w{3}/).to_a
     @course.ended_at = @course.started_at + 4.week
     if @course.category.downcase == "online"
@@ -127,5 +142,40 @@ before_action :set_course, only: [:show, :edit, :update, :destroy, :chatroom]
 
   def req_head
     @header = request.headers
+  end
+
+  def duplicate_check(course_param)
+    tmp_courses = Course.where(teacher_id: current_teacher.id, state: 1)
+    if tmp_courses.present?
+      tmp_courses.each do |course|
+        tmp_array = course.days.scan(/\w{3}/).to_a
+        if course_param.days.include?tmp_array[0] or course_param.days.include?tmp_array[1]
+          if course_param.german_time.to_time.hour == course.german_time.to_time.hour
+            @error = true
+            break
+          elsif course_param.german_time.to_time.hour + 1 == course.german_time.to_time.hour
+            if course_param.german_time.include?"30"
+              @error = true
+              break
+            else
+              @error = false 
+            end
+          elsif course.german_time.to_time.hour + 1 == course_param.german_time.to_time.hour
+            if course.german_time.include?"30"
+              @error = true
+              break
+            else
+              @error = false
+            end
+          else 
+            @error = false
+          end
+        else
+          @error = false
+        end
+      end
+    else
+      @error = false
+    end
   end
 end

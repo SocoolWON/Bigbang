@@ -3,19 +3,18 @@ class DeviseCreateTeachers < ActiveRecord::Migration[5.0]
     create_table :teachers do |t|
       t.string :firstname
       t.string :lastname
-      t.string :hours #available hours
-      t.string :days #available days
       t.integer :salary
       t.integer :hourly_wage
       t.integer :phone_number #should be connected with WhatsApp
-      t.string :education #University or deploma 
+      t.string :univ #University or deploma 
+      t.string :major
       t.string :deduction #minus
-      t.string :work #Work experience
       t.string :interest
       t.string :paypal
       t.integer :level  #Level 1 for offline tutor, Level 2 for offline tutor, Level 3 For all and level 4 is Assistant
       t.string :status
       t.string :picture 
+      t.text :introduction 
       
       ## Database authenticatable
       t.string :email,              null: false, default: ""

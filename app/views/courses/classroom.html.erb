@@ -15,8 +15,12 @@
           <p>시작: <%= course.started_at %> | 요일: <%= course.days%> | 시간: <%= course.korean_time%></p>
           <p><%= link_to '화상수업', chatroom_path(course)%></p>
           <p><%= link_to '수업질문', board_path(course)%></p>
-          <p><%= link_to '입금확인 & 수업시작요청', '#'%></p>
-          <p><%= link_to '수강후기 남기고 최대 9% 할인받기', '#'%></p>
+          <% if course.registrations.last.state == "open" %>
+            <p><%= link_to '수업 시작 요청', close_regis_path(course.registrations.last.id), method: :post%></p>
+          <% end %>
+          <% if course.registrations.last.state == "close" && course.registrations.last.user_id == current_user.id %>
+            <p>수업 시작 요청되었습니다.</p>
+          <% end %>
         </div>
       <% end %>
     <% end %>

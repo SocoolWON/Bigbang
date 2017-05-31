@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/registration/close_regis/:id' => 'registration#close_regis', as: 'close_regis'
   get '/registration/search' => 'registration#search', as: 'search'
   get '/registration/private' => 'registration#privateTutoring'
   get '/registration/public' => 'registration#publicTutoring'
@@ -13,9 +14,13 @@ Rails.application.routes.draw do
         sessions: 'users/sessions', 
         registrations: 'users/registrations',
         confirmations: 'confirmations'
-      }
-  devise_for :teachers
+  }
+  devise_for :teachers, controllers: {
+        registrations: 'teachers/registrations'
+  } 
   get '/online' => 'courses#index'
+  get '/teachers/setting' => 'teachers#setting'
+  post '/teachers/update' => 'teachers#update'
   resources :teachers, only: [:index]
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

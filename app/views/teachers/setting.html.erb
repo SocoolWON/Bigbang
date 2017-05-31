@@ -1,0 +1,43 @@
+<%= render partial: "/shared/navbarTeacher" %>
+  <div class="container">
+    <h2>Setting page for my class</h2>
+
+    <%= form_tag(teachers_update_path, multipart: true,method: :post ) do %>
+
+      <div class="field">
+        <%= label_tag "University(e.g., Free University of Berlin)" %><br />
+        <%= text_field_tag(:univ, @teacher.univ, {autofocus: true}) %>
+      </div>
+
+      <div class="field">
+        <%= label_tag "Major(e.g., German literature)" %><br />
+        <%= text_field_tag(:major, @teacher.major, {autofocus: true}) %>
+      </div>
+
+      <div class="field">
+        <%= label_tag "interest" %><br />
+        <%= text_field_tag(:interest, @teacher.interest, {autofocus: true}) %>
+      </div>
+
+      <div class="field">
+        <%= label_tag "Explain yourself!" %><br />
+        <%= text_area_tag 'introduction', @teacher.introduction, rows: 10, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= label_tag "your paypal account" %><br />
+        <%= email_field_tag(:paypal, @teacher.paypal, {autofocus: true}) %>
+      </div>
+      <% if current_teacher.picture %>
+        <img src="<%=current_teacher.picture%>">
+      <% end %>
+      <div class="field">
+        <label for="file">File to Upload</label>
+        <%= file_field_tag "picture" %>
+      </div>
+      <input type="hidden" name="id" value="<%=current_teacher.id%>">
+      <div class="actions">
+        <%= submit_tag "Update" %>
+      </div>
+    <% end %>
+  </div>

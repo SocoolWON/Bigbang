@@ -24,4 +24,8 @@ class User < ApplicationRecord
   def is_registered?(registration)
      Registration.find_by(user_id: self.id, course_id: registration.course_id).present?
   end
+  protected
+  def confirmation_required?
+    false
+  end
 end

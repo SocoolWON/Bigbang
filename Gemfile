@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 gem 'mysql2', '~> 0.4.4'
 gem 'carrierwave'
+gem 'mini_magick'
 gem "fog-aws"
 gem 'tinymce-rails'
 gem 'figaro'

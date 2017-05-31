@@ -39,7 +39,7 @@
                   <%= link_to '신청됨','#', class: "btn btn-success disabled"%>
                   <%= link_to '취소', registration_cancel_path(registration), class: "btn btn-default", method: "post"%> 
                 <% else %>
-                  <%= link_to '신청', registration_apply_path(registration), class: "btn btn-default", method: "post"%> 
+                  <%= link_to '신청', registration_apply_path(registration), class: "btn btn-default", method: "post", data: { confirm: "3일 이내에 오리엔테이션과 수업의사결정을 해야합니다." }%> 
                 <% end %>
               <% end %>
             </span>
