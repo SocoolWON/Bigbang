@@ -16,16 +16,18 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right main-nav">
-						<li><a href="#intro"><%=controller.controller_name%></a></li>
-						<li><a href="#intro">Intro</a></li>
-						<li><a href="#services">Services</a></li>
-						<li><a href="#team">Team</a></li>
-						<li><a href="#pricing">Price</a></li>
+						<li><a href="#intro">홈</a></li>
+						<li><a href="#services">프로그램</a></li>
+						<li><a href="#team">선생님</a></li>
+						<li><a href="#pricing">수업료</a></li>
+						<li><a href="#reviews">수강후기</a></li>
+						<li><a href="#contact">상담안내</a></li>
+			<!--			<li><a href="#">수강후기</a></li> -->
 						<% if current_user %>
-							<li><a href="/users/sign_out" data-method="delete">Log Out</a></li>
+							<li><a href="/users/sign_out" data-method="delete">로그아웃</a></li>
 						<% else %>
-							<li><a href="#" data-toggle="modal" data-target="#sign_in" class="btn btn-blue">Log In</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#sign_up" class="btn btn-blue">Sign Up</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#sign_in" class="btn btn-blue">로그인</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#sign_up" class="btn btn-blue">회원가입</a></li>
 						<% end %>
 					</ul>
 				</div>
@@ -39,8 +41,8 @@
 					<div class="header-text">
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<h3 class="light white">How long have you been studying German?</h3>
-								<h1 class="white typed">Here is the only way to learn German!</h1>
+								<h1 class="light white">1:1 화상 독어교육 서비스</h1>
+								<h2 class="white typed">독일 명문대 출신 선생님께 직접 배우세요.</h2>
 								<span class="typed-cursor">|</span>
 							</div>
 						</div>
@@ -172,8 +174,8 @@
 		<section id="services" class="section section-padded">
 			<div class="container">
 				<div class="row text-center title">
-					<h2>Services</h2>
-					<h4 class="light muted">Achieve the best results with our wide variety of training options!</h4>
+					<h2>프로그램</h2>
+					<h4 class="light muted">1:1 맞춤 교육을 통해서 독일어 학습 목적을 달성해보세요. </h4>
 				</div>
 				<div class="row services">
 					<div class="col-md-4">
@@ -182,7 +184,7 @@
 								<img src="/../../assets/icons/heart-blue.png" alt="" class="icon">
 							</div>
 							<h4 class="heading">1:1 회화 교육</h4>
-							<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+							<p class="description">첫 만남의 간단한 자기소개부터 다양한 주제의 어휘 및 표현을 배워서 대화의 폭을 넓힐 수 있습니다. 다양한 상황에서 노출되는 표현들을 익히고, 자주 틀리는 문장들을 교정받아 보세요. </p>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -191,7 +193,8 @@
 								<img src="/../../assets/icons/guru-blue.png" alt="" class="icon">
 							</div>
 							<h4 class="heading">1:1 비즈니스 교육</h4>
-							<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+							<p class="description">독일계회사의 직장인, 취업준비생을 대상으로
+비지니스의 격식있는 용어, 매너, 문화를 학습하는데 특화된 컨텐츠입니다. 전화응대, 프레젠테이션 등 다양한 상황에서의 실질적인 표현 및 어휘를 학습합니다.</p>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -199,8 +202,8 @@
 							<div class="icon-holder">
 								<img src="/../../assets/icons/weight-blue.png" alt="" class="icon">
 							</div>
-							<h4 class="heading">자격증 대비</h4>
-							<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>
+							<h4 class="heading">시사과정</h4>
+							<p class="description">DW에서 제공하는 기사를 통해 사회전반의 동향을 파악하고 어휘 및 고급표현을 학습합니다. 읽기능력과 글을 간결하게 요약하는 능력을 향상시키는데 효과적입니다. 추천대상은 중급이상으로 문장으로 말하기가 가능한 학생입니다.</p>
 						</div>
 					</div>
 				</div>
@@ -210,8 +213,8 @@
 		<section id="team" class="section gray-bg">
 			<div class="container">
 				<div class="row title text-center">
-					<h2 class="margin-top">Team</h2>
-					<h4 class="light muted">We're a dream team!</h4>
+					<h2 class="margin-top">선생님</h2>
+					<h4 class="light muted">베를린 자유대학 등 독일 대학 출신의 선생님들이 1:1 튜터링을 진행합니다.</h4>
 				</div>
 				<div class="row">
 					<div class="col-md-4">
@@ -268,50 +271,66 @@
 		<section id="pricing" class="section">
 			<div class="container">
 				<div class="row title text-center">
-					<h2 class="margin-top white">Pricing</h2>
-					<h4 class="light white">Choose your favorite pricing plan and sign up today!</h4>
+					<h2 class="margin-top white">수업료</h2>
+					<h4 class="light white">학습에 가장 적합한 플랜을 선택하세요.</h4>
 				</div>
 				<div class="row no-margin">
 					<div class="col-md-7 no-padding col-md-offset-5 pricings text-center">
 						<div class="pricing">
-							<div class="box-main active" data-img="/../../pricing1.jpg">
-								<h4 class="white">Yoga Pilates</h4>
-								<h4 class="white regular light">$850.00 <span class="small-font">/ year</span></h4>
-								<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Sign Up Now</a>
-								<i class="info-icon icon_question"></i>
-							</div>
-							<div class="box-second active">
-								<ul class="white-list text-left">
-									<li>One Personal Trainer</li>
-									<li>Big gym space for training</li>
-									<li>Free tools &amp; props</li>
-									<li>Free locker</li>
-									<li>Free before / after shower</li>
-								</ul>
-							</div>
-						</div>
-						<div class="pricing">
-							<div class="box-main" data-img="/../../pricing2.jpg">
-								<h4 class="white">Cardio Training</h4>
-								<h4 class="white regular light">$100.00 <span class="small-font">/ year</span></h4>
-								<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">Sign Up Now</a>
+							<div class="box-main" data-img="/../../assets/pricing1.jpg">
+								<h4 class="white">1:1 회화 베이직 플랜  </h4>
+								<h4 class="white regular light">주 1회 <span class="small-font"> / 월 4회</span></h4>
+								<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">149,000원</a>
 								<i class="info-icon icon_question"></i>
 							</div>
 							<div class="box-second">
 								<ul class="white-list text-left">
-									<li>One Personal Trainer</li>
-									<li>Big gym space for training</li>
-									<li>Free tools &amp; props</li>
-									<li>Free locker</li>
-									<li>Free before / after shower</li>
+									<li>무료 오리엔테이션 포함</li>
+									<li>수강기간 동안 질의응답 무제한</li>
+									<li>수업 피드백 </li>
+									<li>수업연기 1회 가능 </li>
+									<li>총 200분 수업</li>
 								</ul>
 							</div>
+						<div class="pricing">
+							<div class="box-main active" data-img="/../../assets/pricing2.jpg">
+								<h4 class="white">1:1 회화 플러스 플랜 </h4>
+								<h4 class="white regular light">주 2회 <span class="small-font"> / 월 8회</span></h4>
+								<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">279,000원</a>
+								<i class="info-icon icon_question"></i>
+							</div>
+							<div class="box-second active">
+								<ul class="white-list text-left">
+									<li>무료 오리엔테이션 포함</li>
+									<li>수강기간 동안 질의응답 무제한</li>
+									<li>수업 피드백 & 수업 다운로드 가능 </li>
+									<li>수업연기 2회 가능 </li>
+									<li>총 400분 수업</li>
+								</ul>
+							</div>
+						<div class="pricing">
+							<div class="box-main" data-img="/../../assets/pricing1.jpg">
+								<h4 class="white">1:1 회화 프리미엄 플랜  </h4>
+								<h4 class="white regular light">주 3회 <span class="small-font"> / 월 12회</span></h4>
+								<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill">380,000원</a>
+								<i class="info-icon icon_question"></i>
+							</div>
+							<div class="box-second active">
+								<ul class="white-list text-left">
+									<li>무료 오리엔테이션 포함</li>
+									<li>수강기간 동안 질의응답 무제한</li>
+									<li>수업 피드백 & 수업 다운로드 가능 </li>
+									<li>수업연기 3회 가능 </li>
+									<li>총 600분 수업</li>
+								</ul>
+							</div>
+						</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="section section-padded blue-bg">
+		<section id="reviews"class="section section-padded blue-bg">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
@@ -389,13 +408,13 @@
 		</div>
 		<!-- 모달 로그인 종료 -->
 
-		<footer>
+		<footer id="contact">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6 text-center-mobile">
 						<h3 class="white">Reserve a Free Trial Class!</h3>
 						<h5 class="light regular light-white">Shape your body and improve your health.</h5>
-						<a href="#" class="btn btn-blue ripple trial-button">Start Free Trial</a>
+						<a href="#" class="btn btn-blue ripple trial-button">블로그 방문하기</a>
 					</div>
 					<div class="col-sm-6 text-center-mobile">
 						<h3 class="white">Opening Hours <span class="open-blink"></span></h3>
